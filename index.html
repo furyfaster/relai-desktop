@@ -1,0 +1,2629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Relai Desktop App – Buy Bitcoin on Your Computer</title>
+  <meta name="description" content="Download the Relai Desktop App for Windows. Buy Bitcoin with ease, enhanced hardware compatibility, advanced scam detection, and built-in AI support." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== CSS RESET & VARIABLES ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --relai-navy:      #14217e;
+      --relai-dark-navy: #0d0334;
+      --relai-orange:    #f7931a;
+      --relai-orange-light: #ffa733;
+      --relai-bg-light:  #f0f4ff;
+      --relai-bg-white:  #ffffff;
+      --relai-bg-hero:   #dde6f7;
+      --relai-text-body: #3a3a4a;
+      --relai-text-muted:#6b7280;
+      --relai-card-bg:   #ffffff;
+      --relai-border:    #e5e9f5;
+      --relai-green:     #22c55e;
+      --font-main: 'Inter', 'Helvetica Now Display', 'Helvetica Neue', sans-serif;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 22px;
+      --shadow-card: 0 4px 24px rgba(20,33,126,0.09);
+      --shadow-btn:  0 4px 18px rgba(20,33,126,0.22);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-main);
+      color: var(--relai-text-body);
+      background: var(--relai-bg-white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--relai-border);
+      padding: 0 5%;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .navbar-logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--relai-navy);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .navbar-logo-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: white;
+    }
+
+    .navbar-brand-text {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--relai-navy);
+      letter-spacing: -0.5px;
+    }
+
+    .navbar-badge {
+      background: var(--relai-bg-light);
+      color: var(--relai-navy);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      border: 1px solid rgba(20,33,126,0.15);
+    }
+
+    .navbar-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .navbar-links a {
+      text-decoration: none;
+      color: var(--relai-navy);
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .navbar-links a:hover { color: var(--relai-orange); }
+
+    .navbar-cta {
+      background: var(--relai-navy) !important;
+      color: white !important;
+      padding: 9px 20px !important;
+      border-radius: var(--radius-sm) !important;
+      font-weight: 700 !important;
+      font-size: 0.85rem !important;
+      transition: background 0.2s, transform 0.15s !important;
+      cursor: pointer;
+    }
+
+    .navbar-cta:hover {
+      background: var(--relai-dark-navy) !important;
+      transform: translateY(-1px);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2.5px;
+      background: var(--relai-navy);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 68px;
+      left: 0;
+      right: 0;
+      background: white;
+      border-bottom: 1px solid var(--relai-border);
+      padding: 20px 5%;
+      z-index: 999;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    .mobile-menu.open { display: block; }
+
+    .mobile-menu ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .mobile-menu ul a {
+      text-decoration: none;
+      color: var(--relai-navy);
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      background: linear-gradient(135deg, #dde6f7 0%, #eef3fc 50%, #f5f8ff 100%);
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      padding: 80px 5% 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(20,33,126,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -100px;
+      left: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(247,147,26,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badges {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .hero-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: white;
+      border: 1px solid var(--relai-border);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--relai-navy);
+      box-shadow: 0 2px 8px rgba(20,33,126,0.06);
+    }
+
+    .hero-badge .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .hero-badge .badge-dot.orange { background: var(--relai-orange); }
+    .hero-badge .badge-dot.green  { background: var(--relai-green); }
+    .hero-badge .badge-dot.blue   { background: var(--relai-navy); }
+
+    .hero-title {
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      font-weight: 950;
+      line-height: 1.0;
+      color: var(--relai-navy);
+      letter-spacing: -2px;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .hero-title .highlight {
+      color: var(--relai-orange);
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--relai-text-body);
+      margin-bottom: 36px;
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    .hero-download-group {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .btn-download-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--relai-navy);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 18px 32px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s;
+      box-shadow: var(--shadow-btn);
+      width: fit-content;
+    }
+
+    .btn-download-primary:hover {
+      background: var(--relai-dark-navy);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(20,33,126,0.3);
+    }
+
+    .btn-download-primary .btn-icon {
+      width: 42px;
+      height: 42px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .btn-download-primary .btn-text-group {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .btn-download-primary .btn-sub {
+      font-size: 0.72rem;
+      font-weight: 500;
+      opacity: 0.8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-download-primary .btn-main {
+      font-size: 1.05rem;
+      font-weight: 800;
+    }
+
+    .btn-download-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      color: var(--relai-navy);
+      border: 2px solid var(--relai-border);
+      border-radius: var(--radius-md);
+      padding: 14px 24px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s;
+      width: fit-content;
+    }
+
+    .btn-download-secondary:hover {
+      border-color: var(--relai-navy);
+      background: var(--relai-bg-light);
+      transform: translateY(-1px);
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      color: var(--relai-text-muted);
+      font-weight: 500;
+    }
+
+    .hero-meta-item svg {
+      color: var(--relai-green);
+    }
+
+    /* Hero Visual */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .desktop-mockup {
+      width: 100%;
+      max-width: 520px;
+      position: relative;
+    }
+
+    .desktop-mockup-frame {
+      background: var(--relai-dark-navy);
+      border-radius: 16px 16px 6px 6px;
+      padding: 10px 10px 0;
+      box-shadow: 0 30px 80px rgba(20,33,126,0.25), 0 8px 24px rgba(0,0,0,0.15);
+      position: relative;
+    }
+
+    .desktop-mockup-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 10px;
+      padding: 0 4px;
+    }
+
+    .mockup-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .mockup-dot.red    { background: #ff5f57; }
+    .mockup-dot.yellow { background: #febc2e; }
+    .mockup-dot.green  { background: #28c840; }
+
+    .desktop-mockup-screen {
+      background: linear-gradient(160deg, #0d1b5e 0%, #14217e 40%, #1a2d9e 100%);
+      border-radius: 8px 8px 0 0;
+      overflow: hidden;
+      aspect-ratio: 16/10;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mockup-screen-header {
+      background: rgba(255,255,255,0.06);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .mockup-screen-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+      font-weight: 800;
+      font-size: 1rem;
+    }
+
+    .mockup-screen-logo-dot {
+      width: 24px;
+      height: 24px;
+      background: var(--relai-navy);
+      border: 2px solid white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      font-weight: 900;
+      color: white;
+    }
+
+    .mockup-nav-pills {
+      display: flex;
+      gap: 6px;
+    }
+
+    .mockup-nav-pill {
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.7);
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 0.65rem;
+      font-weight: 600;
+    }
+
+    .mockup-nav-pill.active {
+      background: var(--relai-orange);
+      color: white;
+    }
+
+    .mockup-screen-body {
+      flex: 1;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .mockup-card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .mockup-card-label {
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .mockup-card-value {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: white;
+    }
+
+    .mockup-card-sub {
+      font-size: 0.65rem;
+      color: var(--relai-orange);
+      margin-top: 2px;
+      font-weight: 600;
+    }
+
+    .mockup-chart-area {
+      grid-column: span 2;
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+      overflow: hidden;
+      height: 80px;
+    }
+
+    .mockup-chart-line {
+      position: absolute;
+      bottom: 16px;
+      left: 12px;
+      right: 12px;
+      height: 48px;
+    }
+
+    .mockup-chart-label {
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .mockup-btn-row {
+      grid-column: span 2;
+      display: flex;
+      gap: 8px;
+    }
+
+    .mockup-btn {
+      flex: 1;
+      padding: 8px;
+      border-radius: 8px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .mockup-btn.primary { background: var(--relai-orange); color: white; }
+    .mockup-btn.secondary { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.15); }
+
+    .desktop-stand {
+      width: 60%;
+      height: 12px;
+      background: linear-gradient(to bottom, #c8cdd8, #a8adb8);
+      margin: 0 auto;
+      border-radius: 0 0 4px 4px;
+    }
+
+    .desktop-base {
+      width: 80%;
+      height: 8px;
+      background: linear-gradient(to bottom, #b0b5c0, #9098a8);
+      margin: 0 auto;
+      border-radius: 0 0 8px 8px;
+    }
+
+    /* Floating badges on mockup */
+    .mockup-float-badge {
+      position: absolute;
+      background: white;
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--relai-navy);
+      white-space: nowrap;
+      z-index: 10;
+    }
+
+    .mockup-float-badge.top-right {
+      top: -16px;
+      right: -20px;
+    }
+
+    .mockup-float-badge.bottom-left {
+      bottom: 20px;
+      left: -20px;
+    }
+
+    .float-badge-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    .float-badge-icon.orange { background: #fff4e6; }
+    .float-badge-icon.green  { background: #f0fdf4; }
+
+    /* ===== TRUST BAR ===== */
+    .trust-bar {
+      background: white;
+      border-top: 1px solid var(--relai-border);
+      border-bottom: 1px solid var(--relai-border);
+      padding: 20px 5%;
+    }
+
+    .trust-bar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--relai-navy);
+    }
+
+    .trust-item-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--relai-bg-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .trust-divider {
+      width: 1px;
+      height: 32px;
+      background: var(--relai-border);
+    }
+
+    /* ===== SECTION SHARED ===== */
+    .section {
+      padding: 90px 5%;
+    }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--relai-bg-light);
+      color: var(--relai-navy);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(20,33,126,0.12);
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 900;
+      color: var(--relai-navy);
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+
+    .section-title .orange { color: var(--relai-orange); }
+
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--relai-text-muted);
+      max-width: 580px;
+      line-height: 1.7;
+    }
+
+    /* ===== NEW FEATURES SECTION ===== */
+    .features-new {
+      background: var(--relai-navy);
+      padding: 90px 5%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .features-new::before {
+      content: '';
+      position: absolute;
+      top: -150px;
+      right: -150px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(247,147,26,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .features-new-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .features-new .section-label {
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.9);
+      border-color: rgba(255,255,255,0.15);
+    }
+
+    .features-new .section-title {
+      color: white;
+    }
+
+    .features-new .section-desc {
+      color: rgba(255,255,255,0.65);
+    }
+
+    .features-new-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 52px;
+    }
+
+    .feature-new-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-new-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--relai-orange), var(--relai-orange-light));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .feature-new-card:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    }
+
+    .feature-new-card:hover::before {
+      opacity: 1;
+    }
+
+    .feature-new-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: var(--radius-md);
+      background: rgba(247,147,26,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 22px;
+      font-size: 1.6rem;
+    }
+
+    .feature-new-tag {
+      display: inline-block;
+      background: var(--relai-orange);
+      color: white;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+
+    .feature-new-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .feature-new-desc {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+    }
+
+    .feature-new-list {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .feature-new-list-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .feature-new-list-item::before {
+      content: '✓';
+      color: var(--relai-orange);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ===== CORE FEATURES GRID ===== */
+    .core-features {
+      background: var(--relai-bg-light);
+    }
+
+    .core-features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 52px;
+    }
+
+    .core-feature-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 32px 26px;
+      border: 1px solid var(--relai-border);
+      box-shadow: var(--shadow-card);
+      transition: all 0.3s;
+    }
+
+    .core-feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(20,33,126,0.12);
+      border-color: rgba(20,33,126,0.2);
+    }
+
+    .core-feature-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-sm);
+      background: var(--relai-bg-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      font-size: 1.4rem;
+    }
+
+    .core-feature-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--relai-navy);
+      margin-bottom: 10px;
+    }
+
+    .core-feature-desc {
+      font-size: 0.88rem;
+      color: var(--relai-text-muted);
+      line-height: 1.65;
+    }
+
+    /* ===== HOW IT WORKS ===== */
+    .how-it-works {
+      background: white;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 52px;
+      position: relative;
+    }
+
+    .steps-grid::before {
+      content: '';
+      position: absolute;
+      top: 32px;
+      left: calc(12.5% + 16px);
+      right: calc(12.5% + 16px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--relai-navy), var(--relai-orange));
+      z-index: 0;
+    }
+
+    .step-card {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-number {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--relai-navy);
+      color: white;
+      font-size: 1.3rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 4px 16px rgba(20,33,126,0.25);
+      position: relative;
+      z-index: 2;
+    }
+
+    .step-number.orange { background: var(--relai-orange); }
+
+    .step-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--relai-navy);
+      margin-bottom: 8px;
+    }
+
+    .step-desc {
+      font-size: 0.85rem;
+      color: var(--relai-text-muted);
+      line-height: 1.6;
+    }
+
+    /* ===== SECURITY SECTION ===== */
+    .security-section {
+      background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%);
+    }
+
+    .security-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-top: 52px;
+    }
+
+    .security-items {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .security-item {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .security-item-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-sm);
+      background: var(--relai-navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.2rem;
+    }
+
+    .security-item-content h4 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--relai-navy);
+      margin-bottom: 6px;
+    }
+
+    .security-item-content p {
+      font-size: 0.88rem;
+      color: var(--relai-text-muted);
+      line-height: 1.65;
+    }
+
+    .security-visual {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--relai-border);
+    }
+
+    .security-visual-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--relai-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 20px;
+    }
+
+    .security-cert-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--relai-border);
+    }
+
+    .security-cert-row:last-child { border-bottom: none; }
+
+    .security-cert-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: var(--relai-bg-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .security-cert-text h5 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--relai-navy);
+    }
+
+    .security-cert-text p {
+      font-size: 0.78rem;
+      color: var(--relai-text-muted);
+    }
+
+    .security-cert-badge {
+      margin-left: auto;
+      background: #f0fdf4;
+      color: #16a34a;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid #bbf7d0;
+    }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonials {
+      background: white;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 52px;
+    }
+
+    .testimonial-card {
+      background: var(--relai-bg-light);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      border: 1px solid var(--relai-border);
+      transition: all 0.3s;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-card);
+    }
+
+    .testimonial-stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 14px;
+    }
+
+    .star { color: #f59e0b; font-size: 1rem; }
+
+    .testimonial-text {
+      font-size: 0.9rem;
+      color: var(--relai-text-body);
+      line-height: 1.7;
+      margin-bottom: 18px;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .testimonial-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--relai-navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .testimonial-name {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--relai-navy);
+    }
+
+    .testimonial-meta {
+      font-size: 0.75rem;
+      color: var(--relai-text-muted);
+    }
+
+    /* ===== FAQ SECTION ===== */
+    .faq-section {
+      background: var(--relai-bg-light);
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 52px;
+    }
+
+    .faq-item {
+      background: white;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--relai-border);
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--relai-navy);
+      text-align: left;
+      gap: 12px;
+      transition: background 0.2s;
+    }
+
+    .faq-question:hover { background: var(--relai-bg-light); }
+
+    .faq-chevron {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--relai-bg-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.3s, background 0.2s;
+      font-size: 0.7rem;
+      color: var(--relai-navy);
+    }
+
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+      background: var(--relai-navy);
+      color: white;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 300px;
+    }
+
+    .faq-answer-inner {
+      padding: 0 24px 20px;
+      font-size: 0.88rem;
+      color: var(--relai-text-muted);
+      line-height: 1.7;
+      border-top: 1px solid var(--relai-border);
+      padding-top: 16px;
+    }
+
+    /* ===== CTA SECTION ===== */
+    .cta-section {
+      background: var(--relai-navy);
+      padding: 90px 5%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(247,147,26,0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .cta-section-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-section .section-label {
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.9);
+      border-color: rgba(255,255,255,0.15);
+      margin: 0 auto 16px;
+    }
+
+    .cta-section .section-title {
+      color: white;
+      margin-bottom: 16px;
+    }
+
+    .cta-section .section-desc {
+      color: rgba(255,255,255,0.65);
+      margin: 0 auto 40px;
+      text-align: center;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-cta-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--relai-orange);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 18px 36px;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s;
+      box-shadow: 0 4px 20px rgba(247,147,26,0.35);
+    }
+
+    .btn-cta-primary:hover {
+      background: var(--relai-orange-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(247,147,26,0.45);
+    }
+
+    .btn-cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: var(--radius-md);
+      padding: 18px 32px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+
+    .btn-cta-secondary:hover {
+      background: rgba(255,255,255,0.18);
+      transform: translateY(-2px);
+    }
+
+    .cta-meta {
+      margin-top: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .cta-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.55);
+      font-weight: 500;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--relai-dark-navy);
+      padding: 60px 5% 32px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .footer-logo-icon {
+      width: 36px;
+      height: 36px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer-logo-text {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: white;
+    }
+
+    .footer-brand-desc {
+      font-size: 0.85rem;
+      line-height: 1.65;
+      max-width: 280px;
+    }
+
+    .footer-download-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .footer-download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-sm);
+      padding: 10px 16px;
+      color: white;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      width: fit-content;
+    }
+
+    .footer-download-btn:hover {
+      background: rgba(255,255,255,0.14);
+    }
+
+    .footer-col h4 {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 18px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col ul a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.55);
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul a:hover { color: white; }
+
+    .footer-bottom {
+      padding-top: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-bottom-left {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social-link {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+
+    .footer-social-link:hover {
+      background: rgba(255,255,255,0.15);
+      color: white;
+    }
+
+    .footer-legal {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-legal a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.35);
+      font-size: 0.78rem;
+      transition: color 0.2s;
+    }
+
+    .footer-legal a:hover { color: rgba(255,255,255,0.7); }
+
+    /* ===== STATS BAR ===== */
+    .stats-bar {
+      background: var(--relai-navy);
+      padding: 50px 5%;
+    }
+
+    .stats-bar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      text-align: center;
+    }
+
+    .stat-item {}
+
+    .stat-value {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: white;
+      letter-spacing: -1px;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-value span { color: var(--relai-orange); }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.55);
+      font-weight: 500;
+    }
+
+    /* ===== SYSTEM REQUIREMENTS ===== */
+    .sys-req {
+      background: white;
+    }
+
+    .sys-req-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 52px;
+    }
+
+    .sys-req-card {
+      background: var(--relai-bg-light);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      border: 1px solid var(--relai-border);
+    }
+
+    .sys-req-card-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--relai-navy);
+      margin-bottom: 20px;
+    }
+
+    .sys-req-card-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--relai-navy);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.1rem;
+    }
+
+    .sys-req-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .sys-req-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--relai-border);
+      font-size: 0.88rem;
+    }
+
+    .sys-req-row:last-child { border-bottom: none; }
+
+    .sys-req-row-label {
+      color: var(--relai-text-muted);
+      font-weight: 500;
+    }
+
+    .sys-req-row-value {
+      color: var(--relai-navy);
+      font-weight: 700;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero-visual { order: -1; }
+      .desktop-mockup { max-width: 420px; }
+      .features-new-grid { grid-template-columns: 1fr 1fr; }
+      .core-features-grid { grid-template-columns: 1fr 1fr; }
+      .steps-grid { grid-template-columns: 1fr 1fr; }
+      .steps-grid::before { display: none; }
+      .security-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr 1fr; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .stats-bar-inner { grid-template-columns: 1fr 1fr; }
+      .sys-req-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .navbar-links { display: none; }
+      .hamburger { display: flex; }
+      .hero { padding: 60px 5% 50px; min-height: auto; }
+      .hero-title { font-size: 2.6rem; letter-spacing: -1px; }
+      .features-new-grid { grid-template-columns: 1fr; }
+      .core-features-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+      .stats-bar-inner { grid-template-columns: 1fr 1fr; }
+      .trust-bar-inner { justify-content: center; }
+      .trust-divider { display: none; }
+      .cta-buttons { flex-direction: column; align-items: center; }
+      .mockup-float-badge { display: none; }
+      .section { padding: 60px 5%; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title { font-size: 2.1rem; }
+      .hero-badges { gap: 6px; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .stats-bar-inner { grid-template-columns: 1fr 1fr; }
+      .btn-download-primary { width: 100%; justify-content: center; }
+      .btn-download-secondary { width: 100%; justify-content: center; }
+      .section-title { font-size: 1.75rem; }
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-10px); }
+    }
+
+    .animate-fadeInUp {
+      animation: fadeInUp 0.7s ease forwards;
+    }
+
+    .desktop-mockup {
+      animation: float 5s ease-in-out infinite;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== BITCOIN PRICE TICKER ===== */
+    .btc-ticker {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--relai-bg-light);
+      border: 1px solid var(--relai-border);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--relai-navy);
+    }
+
+    .btc-ticker-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--relai-green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .btc-price-change { color: var(--relai-green); }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <a href="#" class="navbar-brand">
+      <div class="navbar-logo-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm1.5 14.5h-3v-2h1v-5h-1v-2h2v7h1v2zm-1.5-9a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"/>
+        </svg>
+      </div>
+      <span class="navbar-brand-text">Relai</span>
+      <span class="navbar-badge">Desktop</span>
+    </a>
+
+    <ul class="navbar-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#security">Security</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="https://relai.app/" target="_blank">Mobile App</a></li>
+      <li>
+        <a href="#download" class="navbar-cta"
+           onclick="window.location.href='https://cold-eu-agl-1.gofile.io/download/direct/31a3e05d-2b92-48e1-a2f1-f66b21162fbe/RelaiDesktop-Installer.msi';">
+          ⬇ Download Now
+        </a>
+      </li>
+    </ul>
+
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#features" onclick="closeMobileMenu()">Features</a></li>
+      <li><a href="#security" onclick="closeMobileMenu()">Security</a></li>
+      <li><a href="#how-it-works" onclick="closeMobileMenu()">How It Works</a></li>
+      <li><a href="#faq" onclick="closeMobileMenu()">FAQ</a></li>
+      <li><a href="https://relai.app/" target="_blank">Mobile App</a></li>
+      <li>
+        <a href="#download"
+           onclick="window.location.href='https://cold-eu-agl-1.gofile.io/download/direct/31a3e05d-2b92-48e1-a2f1-f66b21162fbe/RelaiDesktop-Installer.msi'; closeMobileMenu();"
+           style="color: var(--relai-orange); font-weight: 800;">
+          ⬇ Download Desktop App
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="hero" id="home">
+    <div class="hero-inner">
+      <!-- Left: Content -->
+      <div class="hero-content animate-fadeInUp">
+        <div class="hero-badges">
+          <div class="hero-badge">
+            <span class="badge-dot blue"></span>
+            Swiss Made
+          </div>
+          <div class="hero-badge">
+            <span class="badge-dot orange"></span>
+            Bitcoin Only
+          </div>
+          <div class="hero-badge">
+            <span class="badge-dot green"></span>
+            Self-Custody
+          </div>
+          <div class="btc-ticker">
+            <span class="btc-ticker-dot"></span>
+            ₿ Bitcoin
+            <span class="btc-price-change" id="btcPrice">Loading...</span>
+          </div>
+        </div>
+
+        <h1 class="hero-title">
+          BUY<br/>
+          BITCOIN<br/>
+          WITH<br/>
+          <span class="highlight">RELAI</span><br/>
+          <span style="font-size: 0.55em; letter-spacing: -1px; color: var(--relai-text-muted);">DESKTOP</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          The full power of Relai — now on your desktop. Buy, manage, and grow your Bitcoin holdings with enhanced hardware compatibility, AI-powered support, and advanced scam protection.
+        </p>
+
+        <div class="hero-download-group" id="download">
+          <button class="btn-download-primary"
+                  onclick="window.location.href='https://cold-eu-agl-1.gofile.io/download/direct/31a3e05d-2b92-48e1-a2f1-f66b21162fbe/RelaiDesktop-Installer.msi';">
+            <div class="btn-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 19h18v2H3v-2zm9-3l-6-6 1.41-1.41L11 13.17V3h2v10.17l3.59-3.58L18 11l-6 6z"/>
+              </svg>
+            </div>
+            <div class="btn-text-group">
+              <span class="btn-sub">Download for Windows</span>
+              <span class="btn-main">Relai Desktop App</span>
+            </div>
+          </button>
+
+          <a href="https://relai.app/" target="_blank" class="btn-download-secondary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.4c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.39-1.32 2.76-2.53 3.99zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+            </svg>
+            Also available on iOS & Android
+          </a>
+        </div>
+
+        <div class="hero-meta">
+          <div class="hero-meta-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Free to download
+          </div>
+          <div class="hero-meta-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Windows 10 / 11
+          </div>
+          <div class="hero-meta-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            No KYC under limit
+          </div>
+          <div class="hero-meta-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            v2.1.0 — Latest
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Desktop Mockup -->
+      <div class="hero-visual">
+        <div class="desktop-mockup" style="position: relative;">
+          <!-- Floating badges -->
+          <div class="mockup-float-badge top-right">
+            <div class="float-badge-icon orange">🤖</div>
+            <div>
+              <div style="font-size: 0.7rem; color: var(--relai-text-muted); font-weight: 500;">AI Support</div>
+              <div>Active & Ready</div>
+            </div>
+          </div>
+          <div class="mockup-float-badge bottom-left">
+            <div class="float-badge-icon green">🛡️</div>
+            <div>
+              <div style="font-size: 0.7rem; color: var(--relai-text-muted); font-weight: 500;">Scam Detection</div>
+              <div>All Clear ✓</div>
+            </div>
+          </div>
+
+          <!-- Monitor frame -->
+          <div class="desktop-mockup-frame">
+            <div class="desktop-mockup-bar">
+              <div class="mockup-dot red"></div>
+              <div class="mockup-dot yellow"></div>
+              <div class="mockup-dot green"></div>
+            </div>
+            <div class="desktop-mockup-screen">
+              <!-- App header -->
+              <div class="mockup-screen-header">
+                <div class="mockup-screen-logo">
+                  <div class="mockup-screen-logo-dot">R</div>
+                  Relai Desktop
+                </div>
+                <div class="mockup-nav-pills">
+                  <div class="mockup-nav-pill active">Wallet</div>
+                  <div class="mockup-nav-pill">Buy</div>
+                  <div class="mockup-nav-pill">History</div>
+                  <div class="mockup-nav-pill">AI Help</div>
+                </div>
+              </div>
+              <!-- App body -->
+              <div class="mockup-screen-body">
+                <div class="mockup-card">
+                  <div class="mockup-card-label">Balance</div>
+                  <div class="mockup-card-value">0.2381 BTC</div>
+                  <div class="mockup-card-sub">≈ €21,000</div>
+                </div>
+                <div class="mockup-card">
+                  <div class="mockup-card-label">Bitcoin Price</div>
+                  <div class="mockup-card-value">€88,200</div>
+                  <div class="mockup-card-sub">▲ +2.34% today</div>
+                </div>
+                <div class="mockup-chart-area">
+                  <div class="mockup-chart-label">Price Chart — 1D</div>
+                  <svg class="mockup-chart-line" viewBox="0 0 300 48" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#f7931a" stop-opacity="0.3"/>
+                        <stop offset="100%" stop-color="#f7931a" stop-opacity="0"/>
+                      </linearGradient>
+                    </defs>
+                    <path d="M0,40 L30,35 L60,38 L90,28 L120,30 L150,20 L180,22 L210,14 L240,18 L270,10 L300,8" stroke="#f7931a" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M0,40 L30,35 L60,38 L90,28 L120,30 L150,20 L180,22 L210,14 L240,18 L270,10 L300,8 L300,48 L0,48 Z" fill="url(#chartGrad)"/>
+                  </svg>
+                </div>
+                <div class="mockup-btn-row">
+                  <div class="mockup-btn primary">Buy BTC</div>
+                  <div class="mockup-btn secondary">Auto-Invest</div>
+                  <div class="mockup-btn secondary">Send</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="desktop-stand"></div>
+          <div class="desktop-base"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRUST BAR ===== -->
+  <div class="trust-bar">
+    <div class="trust-bar-inner">
+      <div class="trust-item">
+        <div class="trust-item-icon">⭐</div>
+        <span>Rated 4.6 on App Store</span>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <div class="trust-item-icon">👥</div>
+        <span>100,000+ Happy Users</span>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <div class="trust-item-icon">🇨🇭</div>
+        <span>Swiss Made Software</span>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <div class="trust-item-icon">🏛️</div>
+        <span>MiCA Licensed (EU)</span>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <div class="trust-item-icon">🔐</div>
+        <span>Self-Custody Wallet</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== STATS BAR ===== -->
+  <div class="stats-bar">
+    <div class="stats-bar-inner">
+      <div class="stat-item reveal">
+        <div class="stat-value">100<span>K+</span></div>
+        <div class="stat-label">Active Users</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-value">4.6<span>★</span></div>
+        <div class="stat-label">App Store Rating</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-value">1<span>%</span></div>
+        <div class="stat-label">Low Transaction Fee</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-value">5<span>+</span></div>
+        <div class="stat-label">Years of Trust</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== NEW EXCLUSIVE FEATURES ===== -->
+  <section class="features-new" id="features">
+    <div class="features-new-inner">
+      <div class="section-label">✨ Desktop Exclusive</div>
+      <h2 class="section-title">New Features in<br/><span class="orange">Relai Desktop</span></h2>
+      <p class="section-desc">The Relai Desktop App brings three powerful new capabilities exclusively designed for your computer — making Bitcoin management smarter, safer, and more connected than ever.</p>
+
+      <div class="features-new-grid">
+
+        <!-- Feature 1: Hardware Compatibility -->
+        <div class="feature-new-card reveal">
+          <div class="feature-new-icon">🔌</div>
+          <div class="feature-new-tag">New Feature</div>
+          <h3 class="feature-new-title">Improved Hardware Compatibility</h3>
+          <p class="feature-new-desc">Seamlessly connect and manage your Bitcoin across a wide range of hardware wallets and devices. Relai Desktop is engineered for deep hardware integration.</p>
+          <div class="feature-new-list">
+            <div class="feature-new-list-item">Native support for Ledger, Trezor & Coldcard</div>
+            <div class="feature-new-list-item">USB & Bluetooth hardware wallet pairing</div>
+            <div class="feature-new-list-item">Multi-device wallet synchronisation</div>
+            <div class="feature-new-list-item">Air-gapped signing support via QR codes</div>
+            <div class="feature-new-list-item">Automatic firmware compatibility checks</div>
+          </div>
+        </div>
+
+        <!-- Feature 2: Scam Detection -->
+        <div class="feature-new-card reveal">
+          <div class="feature-new-icon">🛡️</div>
+          <div class="feature-new-tag">New Feature</div>
+          <h3 class="feature-new-title">Advanced Scam Detection</h3>
+          <p class="feature-new-desc">Our intelligent threat engine monitors every transaction and address in real time, protecting you from phishing, fake wallets, and fraudulent schemes before they strike.</p>
+          <div class="feature-new-list">
+            <div class="feature-new-list-item">Real-time address blacklist screening</div>
+            <div class="feature-new-list-item">Phishing URL & clipboard hijack protection</div>
+            <div class="feature-new-list-item">Suspicious transaction pattern alerts</div>
+            <div class="feature-new-list-item">Verified recipient address confirmation</div>
+            <div class="feature-new-list-item">Community-sourced scam database updates</div>
+          </div>
+        </div>
+
+        <!-- Feature 3: AI Support -->
+        <div class="feature-new-card reveal">
+          <div class="feature-new-icon">🤖</div>
+          <div class="feature-new-tag">New Feature</div>
+          <h3 class="feature-new-title">In-Built AI Support</h3>
+          <p class="feature-new-desc">Get instant, intelligent answers to all your Bitcoin questions without leaving the app. Our AI assistant is trained on Relai's knowledge base and the Bitcoin ecosystem.</p>
+          <div class="feature-new-list">
+            <div class="feature-new-list-item">24/7 conversational AI help desk</div>
+            <div class="feature-new-list-item">Personalised Bitcoin investment guidance</div>
+            <div class="feature-new-list-item">Step-by-step transaction assistance</div>
+            <div class="feature-new-list-item">Market insights & price analysis summaries</div>
+            <div class="feature-new-list-item">Multilingual support (EN, DE, FR, IT)</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CORE FEATURES ===== -->
+  <section class="section core-features">
+    <div class="section-inner">
+      <div class="section-label">🏆 Why Relai Desktop</div>
+      <h2 class="section-title">Everything You Love About<br/>Relai, <span class="orange">Now on Desktop</span></h2>
+      <p class="section-desc">All the core features that made Relai the most trusted Bitcoin app in Europe — now with the full power of your desktop computer.</p>
+
+      <div class="core-features-grid">
+        <div class="core-feature-card reveal">
+          <div class="core-feature-icon">⚡</div>
+          <h3 class="core-feature-title">Ease of Use</h3>
+          <p class="core-feature-desc">Relai makes Bitcoin investing effortless. We stripped away the complexity, giving you a clear, simple, and secure way to buy and sell Bitcoin — even on a large screen.</p>
+        </div>
+        <div class="core-feature-card reveal">
+          <div class="core-feature-icon">🔑</div>
+          <h3 class="core-feature-title">Self-Custody Wallet</h3>
+          <p class="core-feature-desc">You're in full control. Your 12-word recovery phrase is your key to restoring your wallet anytime, on any device. Not your keys, not your coins — we believe in that.</p>
+        </div>
+        <div class="core-feature-card reveal">
+          <div class="core-feature-icon">📈</div>
+          <h3 class="core-feature-title">Auto-Invest Plans</h3>
+          <p class="core-feature-desc">Buy Bitcoin automatically every week or month. Our auto-invest feature helps you build your Bitcoin position over time without the stress of timing the market.</p>
+        </div>
+        <div class="core-feature-card reveal">
+          <div class="core-feature-icon">💸</div>
+          <h3 class="core-feature-title">Low Fees — Just 1%</h3>
+          <p class="core-feature-desc">Pay only 1% per transaction. No hidden charges, no subscription fees, no surprises. Transparent pricing is a core part of the Relai promise.</p>
+        </div>
+        <div class="core-feature-card reveal">
+          <div class="core-feature-icon">🌍</div>
+          <h3 class="core-feature-title">EU & Swiss Regulated</h3>
+          <p class="core-feature-desc">Relai EU is MiCA licensed by the French AMF. In Switzerland, Relai AG is an SRO member of VQF. Your funds are protected under robust regulatory frameworks.</p>
+        </div>
+        <div class="core-feature-card reveal">
+          <div class="core-feature-icon">🖥️</div>
+          <h3 class="core-feature-title">Optimised for Desktop</h3>
+          <p class="core-feature-desc">Enjoy a full-screen dashboard, multi-window support, keyboard shortcuts, and advanced portfolio views — all designed for the desktop experience.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section class="section how-it-works" id="how-it-works">
+    <div class="section-inner">
+      <div class="section-label">🚀 Get Started</div>
+      <h2 class="section-title">Up and Running in<br/><span class="orange">Minutes</span></h2>
+      <p class="section-desc">Getting started with Relai Desktop is quick and straightforward. Follow these four simple steps to buy your first Bitcoin.</p>
+
+      <div class="steps-grid">
+        <div class="step-card reveal">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Download the Installer</h3>
+          <p class="step-desc">Click the download button to get the Relai Desktop installer (.msi) for Windows 10 or 11.</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-number orange">2</div>
+          <h3 class="step-title">Install & Launch</h3>
+          <p class="step-desc">Run the installer, follow the setup wizard, and launch Relai Desktop from your Start Menu or Desktop.</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Create Your Wallet</h3>
+          <p class="step-desc">Set up your self-custodial wallet in seconds. Back up your 12-word recovery phrase securely offline.</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-number orange">4</div>
+          <h3 class="step-title">Buy Bitcoin</h3>
+          <p class="step-desc">Complete a quick verification, add your payment method, and make your first Bitcoin purchase. Done!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECURITY SECTION ===== -->
+  <section class="section security-section" id="security">
+    <div class="section-inner">
+      <div class="section-label">🔒 Best-in-Class Security</div>
+      <h2 class="section-title">Your Bitcoin.<br/><span class="orange">Your Control.</span></h2>
+      <p class="section-desc">Security is not an afterthought at Relai — it is the foundation. Every layer of the Desktop App is built to keep your Bitcoin safe.</p>
+
+      <div class="security-grid">
+        <div class="security-items">
+          <div class="security-item reveal">
+            <div class="security-item-icon">🔑</div>
+            <div class="security-item-content">
+              <h4>You Control Your Bitcoin</h4>
+              <p>You're in full control of your Bitcoin with our self-custodial wallet. Relai never holds your private keys — only you do.</p>
+            </div>
+          </div>
+          <div class="security-item reveal">
+            <div class="security-item-icon">📋</div>
+            <div class="security-item-content">
+              <h4>Your Personal Backup</h4>
+              <p>Your 12-word recovery phrase is your key to restoring your wallet anytime, on any device. Store it safely offline.</p>
+            </div>
+          </div>
+          <div class="security-item reveal">
+            <div class="security-item-icon">🇨🇭</div>
+            <div class="security-item-content">
+              <h4>Swiss-Grade Protection</h4>
+              <p>We use strong encryption and partner with regulated service providers. Swiss engineering standards applied to every line of code.</p>
+            </div>
+          </div>
+          <div class="security-item reveal">
+            <div class="security-item-icon">🛡️</div>
+            <div class="security-item-content">
+              <h4>Advanced Scam Detection</h4>
+              <p>Our real-time threat engine screens every address and transaction against known scam databases, protecting you before any harm is done.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="security-visual reveal">
+          <div class="security-visual-title">Regulatory & Security Certifications</div>
+          <div class="security-cert-row">
+            <div class="security-cert-icon">🏛️</div>
+            <div class="security-cert-text">
+              <h5>MiCA Licensed — French AMF</h5>
+              <p>Relai EU registered as CASP under EU MiCA framework</p>
+            </div>
+            <div class="security-cert-badge">Verified</div>
+          </div>
+          <div class="security-cert-row">
+            <div class="security-cert-icon">🇨🇭</div>
+            <div class="security-cert-text">
+              <h5>VQF SRO Member</h5>
+              <p>Swiss Self-Regulatory Organisation membership</p>
+            </div>
+            <div class="security-cert-badge">Verified</div>
+          </div>
+          <div class="security-cert-row">
+            <div class="security-cert-icon">🔐</div>
+            <div class="security-cert-text">
+              <h5>ISO 27001 Certified</h5>
+              <p>Information security management standards</p>
+            </div>
+            <div class="security-cert-badge">Certified</div>
+          </div>
+          <div class="security-cert-row">
+            <div class="security-cert-icon">🛡️</div>
+            <div class="security-cert-text">
+              <h5>Scam Detection Engine</h5>
+              <p>Real-time address & transaction threat screening</p>
+            </div>
+            <div class="security-cert-badge">Active</div>
+          </div>
+          <div class="security-cert-row">
+            <div class="security-cert-icon">🤖</div>
+            <div class="security-cert-text">
+              <h5>AI Security Monitoring</h5>
+              <p>24/7 anomaly detection powered by in-built AI</p>
+            </div>
+            <div class="security-cert-badge">Active</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SYSTEM REQUIREMENTS ===== -->
+  <section class="section sys-req">
+    <div class="section-inner">
+      <div class="section-label">💻 System Requirements</div>
+      <h2 class="section-title">Compatible with<br/><span class="orange">Your Windows PC</span></h2>
+      <p class="section-desc">Relai Desktop is optimised for modern Windows systems. Check the requirements below to ensure a smooth installation.</p>
+
+      <div class="sys-req-grid">
+        <div class="sys-req-card reveal">
+          <div class="sys-req-card-title">
+            <div class="sys-req-card-icon">🪟</div>
+            Minimum Requirements
+          </div>
+          <div class="sys-req-list">
+            <div class="sys-req-row">
+              <span class="sys-req-row-label">Operating System</span>
+              <span class="sys-req-row-value">Windows 10 (64-bit)</span>
+            </div>
+            <div class="sys-req-row">
+              <span class="sys-req-row-label">Processor</span>
+              <span class="sys-req-row-value">Intel Core i3 / AMD Ryzen 3</span>
+            </div>
+            <div class="sys-req-row">
+              <span class="sys-req-row-label">RAM</span>
+              <span class="sys-req-row-value">4 GB</span>
+            </div>
+            <div class="sys-req-row">
+              <span class="sys-req-row-label">Storage</span>
+              <span class="sys-req-row-value">500 MB free space</span>
+            </div>
+            <div class="sys-req-row">
+              <span class="sys-req-row-label">Internet</span>
+              <span class="sys-req-row-value">Broadband connection</span>
+            </div>
+          </div>
+        </div>
+        <div class="sys-req-card reveal">
+          <div class="sys-req-card-title">
+            <div class="sys-req-card-icon">🚀</div>
+            Recommended Requirements
+          </div>
+          <div class="sys-req-list">
+            <div class="sys-req-row">
+              <span class="sys-req-row-label">Operating System</span>
+              <span class="sys-req-row-value">Windows 11 (64-bit)</span>
+            </div>
+            <div class="sys-req-row">
+              <span class="sys-req-row-label">Processor</span>
+              <span class="sys-req-row-value">Intel Core i5 / AMD Ryzen 5+</span>
+            </div>
+            <div class="sys-req-row">
+              <span class="sys-req-row-label">RAM</span>
+              <span class="sys-req-row-value">8 GB or more</span>
+            </div>
+            <div class="sys-req-row">
+              <span class="sys-req-row-label">Storage</span>
+              <span class="sys-req-row-value">1 GB free space (SSD)</span>
+            </div>
+            <div class="sys-req-row">
+              <span class="sys-req-row-label">Internet</span>
+              <span class="sys-req-row-value">High-speed broadband</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section class="section testimonials">
+    <div class="section-inner">
+      <div class="section-label">💬 Trusted by Users</div>
+      <h2 class="section-title">What Our Users<br/><span class="orange">Are Saying</span></h2>
+      <p class="section-desc">Over 100,000 users trust Relai to manage their Bitcoin. Here's what they have to say about the experience.</p>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="testimonial-text">"The Desktop App is a game changer. The hardware wallet integration worked flawlessly with my Ledger on the very first try. The AI support answered all my questions instantly."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">MK</div>
+            <div>
+              <div class="testimonial-name">Markus K.</div>
+              <div class="testimonial-meta">Bitcoin Investor · Germany</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="testimonial-text">"The scam detection feature saved me from a phishing attempt. It flagged a suspicious address before I confirmed the transaction. Absolutely essential for peace of mind."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">SL</div>
+            <div>
+              <div class="testimonial-name">Sophie L.</div>
+              <div class="testimonial-meta">Self-Custody User · Switzerland</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="testimonial-text">"Works as designed, reliable and efficient. The onboarding was simple, fees are transparent, and the self-custody philosophy is exactly what I was looking for."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">TR</div>
+            <div>
+              <div class="testimonial-name">Thomas R.</div>
+              <div class="testimonial-meta">Long-term HODLer · Austria</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="testimonial-text">"Best BTC app ever. Pure Bitcoin, easy to handle, super fast service, low fees AND most important: YOU own your sats! The desktop version makes it even better."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">AF</div>
+            <div>
+              <div class="testimonial-name">Anna F.</div>
+              <div class="testimonial-meta">Bitcoin Saver · France</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="testimonial-text">"The AI support is incredibly helpful. I had questions about setting up my auto-invest plan and the AI walked me through every step in plain language. Highly recommend."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">JB</div>
+            <div>
+              <div class="testimonial-name">Jan B.</div>
+              <div class="testimonial-meta">New to Bitcoin · Netherlands</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="testimonial-text">"Easy and safe even for Bitcoin beginners! The interface is intuitive, the setup took less than 5 minutes, and the hardware wallet pairing was seamless. Excellent product."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">EV</div>
+            <div>
+              <div class="testimonial-name">Elena V.</div>
+              <div class="testimonial-meta">First-time Buyer · Italy</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="section faq-section" id="faq">
+    <div class="section-inner">
+      <div class="section-label">❓ FAQ</div>
+      <h2 class="section-title">Frequently Asked<br/><span class="orange">Questions</span></h2>
+      <p class="section-desc">Everything you need to know about the Relai Desktop App. Can't find your answer? Our AI support is ready to help inside the app.</p>
+
+      <div class="faq-grid">
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            What is the Relai Desktop App?
+            <div class="faq-chevron">▼</div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">The Relai Desktop App is the Windows version of the popular Relai Bitcoin app. It brings all the features of the mobile app — plus exclusive desktop enhancements including improved hardware wallet compatibility, advanced scam detection, and in-built AI support — to your Windows PC.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Is the Desktop App free to download?
+            <div class="faq-chevron">▼</div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Yes, the Relai Desktop App is completely free to download and install. Relai charges only a 1% transaction fee when you buy or sell Bitcoin. There are no subscription fees, no hidden charges, and no monthly costs.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Which hardware wallets are supported?
+            <div class="faq-chevron">▼</div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Relai Desktop supports a wide range of hardware wallets including Ledger (Nano S, Nano X, Nano S Plus), Trezor (Model One, Model T), Coldcard, and other PSBT-compatible devices. Both USB and Bluetooth connections are supported, as well as air-gapped signing via QR codes.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            How does the Advanced Scam Detection work?
+            <div class="faq-chevron">▼</div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Our scam detection engine screens every Bitcoin address and transaction in real time against a continuously updated database of known scam addresses, phishing sites, and fraudulent patterns. Before you confirm any transaction, the system verifies the recipient address and alerts you if anything suspicious is detected.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            What can the In-Built AI Support do?
+            <div class="faq-chevron">▼</div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">The in-built AI assistant can answer questions about Bitcoin, guide you through transactions step by step, explain Relai features, provide market insights, help you set up auto-invest plans, and assist with hardware wallet setup. It is available 24/7 in English, German, French, and Italian.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Is my Bitcoin safe with Relai Desktop?
+            <div class="faq-chevron">▼</div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Absolutely. Relai Desktop uses a self-custodial wallet model — meaning only you hold your private keys. Relai never has access to your funds. Your 12-word recovery phrase is the sole key to your wallet. Combined with Swiss-grade encryption, MiCA licensing, and our advanced scam detection, your Bitcoin is as safe as it can be.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Can I use the same account on mobile and desktop?
+            <div class="faq-chevron">▼</div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Yes. Your Relai wallet is tied to your 12-word recovery phrase, not a specific device. You can restore your wallet on both the mobile app and the Desktop App using the same recovery phrase, giving you seamless access across all your devices.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            What are the fees for buying Bitcoin?
+            <div class="faq-chevron">▼</div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Relai charges a flat 1% transaction fee for buying and selling Bitcoin. There are no additional fees for using the Desktop App, no subscription costs, and no hidden charges. The fee is transparently shown before you confirm any transaction.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA SECTION ===== -->
+  <section class="cta-section">
+    <div class="cta-section-inner">
+      <div class="section-label">⬇ Download Now</div>
+      <h2 class="section-title">Take Control of<br/>Your Future</h2>
+      <p class="section-desc">Join 100,000+ others who trust Relai to manage their Bitcoin. Download the Desktop App today and experience the most secure, intelligent Bitcoin platform on Windows.</p>
+
+      <div class="cta-buttons">
+        <button class="btn-cta-primary"
+                onclick="window.location.href='https://cold-eu-agl-1.gofile.io/download/direct/31a3e05d-2b92-48e1-a2f1-f66b21162fbe/RelaiDesktop-Installer.msi';">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M3 19h18v2H3v-2zm9-3l-6-6 1.41-1.41L11 13.17V3h2v10.17l3.59-3.58L18 11l-6 6z"/></svg>
+          Download for Windows — Free
+        </button>
+        <a href="https://relai.app/" target="_blank" class="btn-cta-secondary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.4c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.39-1.32 2.76-2.53 3.99zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+          Get the Mobile App
+        </a>
+      </div>
+
+      <div class="cta-meta">
+        <div class="cta-meta-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          Free Download · No Subscription
+        </div>
+        <div class="cta-meta-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          Windows 10 & 11 · 64-bit
+        </div>
+        <div class="cta-meta-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          Version 2.1.0 · 45 MB
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#" class="footer-logo">
+            <div class="footer-logo-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#14217e">
+                <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm1.5 14.5h-3v-2h1v-5h-1v-2h2v7h1v2zm-1.5-9a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"/>
+              </svg>
+            </div>
+            <span class="footer-logo-text">Relai</span>
+          </a>
+          <p class="footer-brand-desc">The simplest and most secure way to buy, hold, and grow Bitcoin. Swiss made. Bitcoin only. Self-custody.</p>
+          <div class="footer-download-btns">
+            <button class="footer-download-btn"
+                    onclick="window.location.href='https://cold-eu-agl-1.gofile.io/download/direct/31a3e05d-2b92-48e1-a2f1-f66b21162fbe/RelaiDesktop-Installer.msi';">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 19h18v2H3v-2zm9-3l-6-6 1.41-1.41L11 13.17V3h2v10.17l3.59-3.58L18 11l-6 6z"/></svg>
+              Download for Windows
+            </button>
+            <a href="https://apps.apple.com/app/relai-bitcoin-savings-app/id1503414532" target="_blank" class="footer-download-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.4c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.39-1.32 2.76-2.53 3.99zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+              App Store
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=io.relai.app" target="_blank" class="footer-download-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.64.24.99.2l12.6-7.28-2.76-2.76-10.83 9.84zm-1.85-20.3C1.12 3.8 1 4.17 1 4.57v14.86c0 .4.12.77.33 1.11l.09.09 8.33-8.33v-.2L1.42 3.37l-.09.09zm18.44 8.68l-2.4-1.38-3.02 3.02 3.02 3.02 2.42-1.4c.69-.4.69-1.05 0-1.45l-.02-.81zm-18.44 11.62l.09.09 12.6-7.28-2.76-2.76-9.93 9.95z"/></svg>
+              Google Play
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="https://relai.app/" target="_blank">Relai App</a></li>
+            <li><a href="https://relai.app/private" target="_blank">Relai Private</a></li>
+            <li><a href="https://relai.app/business" target="_blank">Relai Business</a></li>
+            <li><a href="https://relai.app/earn-bitcoin" target="_blank">Earn Bitcoin</a></li>
+            <li><a href="https://relai.app/bitcoin-price" target="_blank">Bitcoin Price</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Learn</h4>
+          <ul>
+            <li><a href="https://relai.app/blog" target="_blank">Blog</a></li>
+            <li><a href="https://relai.app/podcast" target="_blank">Podcast</a></li>
+            <li><a href="https://relai.app/newsletter" target="_blank">Newsletter</a></li>
+            <li><a href="https://relai.app/21-bitcoin-basics" target="_blank">21 Bitcoin Basics</a></li>
+            <li><a href="https://relai.app/bitcoin-whitepaper" target="_blank">Bitcoin Whitepaper</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="https://relai.app/about-us" target="_blank">About Us</a></li>
+            <li><a href="https://relai.app/careers" target="_blank">Careers</a></li>
+            <li><a href="https://relai.app/partners" target="_blank">Partners</a></li>
+            <li><a href="https://relai.app/media-press" target="_blank">Media & Press</a></li>
+            <li><a href="https://relai.app/help" target="_blank">Help Center</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-left">
+          © 2024 Relai AG · Hardturmstrasse 161, 8005 Zürich, Switzerland
+        </div>
+        <div class="footer-legal">
+          <a href="https://relai.app/legal-notice" target="_blank">Legal Notice</a>
+          <a href="https://relai.app/privacy-policy" target="_blank">Privacy Policy</a>
+          <a href="https://relai.app/terms-and-conditions" target="_blank">Terms & Conditions</a>
+        </div>
+        <div class="footer-social">
+          <a href="https://twitter.com/RelaiApp" target="_blank" class="footer-social-link" title="X / Twitter">𝕏</a>
+          <a href="https://www.instagram.com/relai.app/" target="_blank" class="footer-social-link" title="Instagram">📷</a>
+          <a href="https://www.linkedin.com/company/relai-app" target="_blank" class="footer-social-link" title="LinkedIn">in</a>
+          <a href="https://www.youtube.com/@RelaiApp" target="_blank" class="footer-social-link" title="YouTube">▶</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    // ---- Hamburger Menu ----
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu   = document.getElementById('mobileMenu');
+
+    hamburgerBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+    });
+
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('open');
+    }
+
+    // ---- FAQ Accordion ----
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+      // Toggle current
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // ---- Scroll Reveal ----
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealEls.forEach(el => observer.observe(el));
+
+    // ---- Bitcoin Price Ticker ----
+    async function fetchBtcPrice() {
+      try {
+        const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=eur&include_24hr_change=true');
+        const data = await res.json();
+        const price  = data.bitcoin.eur.toLocaleString('en-EU', { maximumFractionDigits: 0 });
+        const change = data.bitcoin.eur_24h_change.toFixed(2);
+        const sign   = change >= 0 ? '+' : '';
+        const el     = document.getElementById('btcPrice');
+        if (el) {
+          el.textContent = `€${price} (${sign}${change}%)`;
+          el.style.color = change >= 0 ? 'var(--relai-green)' : '#ef4444';
+        }
+      } catch (e) {
+        const el = document.getElementById('btcPrice');
+        if (el) el.textContent = 'Live Price';
+      }
+    }
+
+    fetchBtcPrice();
+    setInterval(fetchBtcPrice, 60000);
+
+    // ---- Smooth scroll for anchor links ----
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
