@@ -1,0 +1,8 @@
+# robots.txt — Relai Desktop App
+# https://v1desktop-relai.app/
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://v1desktop-relai.app/sitemap.xml
