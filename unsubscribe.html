@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/jpeg" href="https://pbs.twimg.com/profile_images/1879911957693636608/4kx_3aas.jpg" />
+  <title>Unsubscribe — Relai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #f2f4f8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      color: #111827;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 52px 44px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 36px;
+    }
+
+    .logo img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .logo span {
+      font-size: 22px;
+      font-weight: 900;
+      color: #14217e;
+      letter-spacing: -0.5px;
+    }
+
+    /* ---- STEP 1: Email input ---- */
+    #step-input .icon {
+      width: 64px;
+      height: 64px;
+      background: #eef2ff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 28px;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #14217e;
+      margin-bottom: 10px;
+      letter-spacing: -0.4px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #6b7280;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    .input-wrap {
+      position: relative;
+      margin-bottom: 14px;
+    }
+
+    .input-wrap input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: inherit;
+      color: #111827;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .input-wrap input:focus {
+      border-color: #14217e;
+    }
+
+    .input-wrap input.error {
+      border-color: #ef4444;
+    }
+
+    .error-msg {
+      font-size: 12px;
+      color: #ef4444;
+      text-align: left;
+      margin-top: 6px;
+      display: none;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 15px;
+      background-color: #14217e;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: inherit;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 4px;
+    }
+
+    .btn-primary:hover { background-color: #0f1a63; }
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-primary.loading {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 13px;
+      color: #9ca3af;
+      text-decoration: none;
+    }
+
+    .back-link:hover { color: #14217e; }
+
+    /* ---- STEP 2: Confirm ---- */
+    #step-confirm { display: none; }
+
+    #step-confirm .icon {
+      width: 64px;
+      height: 64px;
+      background: #fff7ed;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 28px;
+    }
+
+    .email-display {
+      background: #f8f9fc;
+      border: 1px solid #e9ecf0;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #14217e;
+      margin: 16px 0 24px;
+      word-break: break-all;
+    }
+
+    .btn-danger {
+      width: 100%;
+      padding: 15px;
+      background-color: #ef4444;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: inherit;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-danger:hover { background-color: #dc2626; }
+    .btn-danger:active { transform: scale(0.98); }
+
+    .btn-ghost {
+      width: 100%;
+      padding: 13px;
+      background: transparent;
+      color: #6b7280;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-ghost:hover { border-color: #14217e; color: #14217e; }
+
+    /* ---- STEP 3: Done ---- */
+    #step-done { display: none; }
+
+    #step-done .icon {
+      width: 64px;
+      height: 64px;
+      background: #f0fdf4;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 28px;
+    }
+
+    .done-note {
+      font-size: 13px;
+      color: #9ca3af;
+      line-height: 1.7;
+      margin-top: 16px;
+    }
+
+    .home-link {
+      display: inline-block;
+      margin-top: 28px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #14217e;
+      text-decoration: none;
+    }
+
+    .home-link:hover { text-decoration: underline; }
+
+    /* ---- Footer ---- */
+    .footer {
+      margin-top: 28px;
+      font-size: 12px;
+      color: #9ca3af;
+      text-align: center;
+    }
+
+    .footer a { color: #9ca3af; text-decoration: none; }
+    .footer a:hover { color: #14217e; }
+
+    @media (max-width: 520px) {
+      .card { padding: 36px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+
+    <!-- Logo -->
+    <div class="logo">
+      <img src="https://pbs.twimg.com/profile_images/1879911957693636608/4kx_3aas.jpg" alt="Relai" />
+      <span>Relai</span>
+    </div>
+
+    <!-- STEP 1: Enter email -->
+    <div id="step-input">
+      <div class="icon">✉️</div>
+      <h1>Unsubscribe from emails</h1>
+      <p class="subtitle">Enter the email address you received this from and we'll remove you from our mailing list.</p>
+
+      <div class="input-wrap">
+        <input type="email" id="email-input" placeholder="your@email.com" autocomplete="email" />
+        <p class="error-msg" id="error-msg">Please enter a valid email address.</p>
+      </div>
+
+      <button class="btn-primary" id="btn-continue" onclick="handleContinue()">Continue</button>
+      <a href="https://v1desktop-relai.app" class="back-link">← Back to Relai Desktop</a>
+    </div>
+
+    <!-- STEP 2: Confirm -->
+    <div id="step-confirm">
+      <div class="icon">⚠️</div>
+      <h1>Are you sure?</h1>
+      <p class="subtitle">You're about to unsubscribe this address from all Relai emails:</p>
+      <div class="email-display" id="email-display"></div>
+      <p class="subtitle" style="margin-bottom:0;">You won't receive product updates, announcements, or security notices from us anymore.</p>
+
+      <button class="btn-danger" onclick="handleUnsubscribe()">Yes, unsubscribe me</button>
+      <button class="btn-ghost" onclick="goBack()">No, keep me subscribed</button>
+    </div>
+
+    <!-- STEP 3: Done -->
+    <div id="step-done">
+      <div class="icon">✅</div>
+      <h1>You've been unsubscribed</h1>
+      <p class="subtitle">We've removed <strong id="done-email" style="color:#14217e;"></strong> from our mailing list. You won't hear from us again.</p>
+      <p class="done-note">Changed your mind? You can always re-subscribe by creating a new account or contacting us at <a href="mailto:support@relai.app" style="color:#14217e;">support@relai.app</a>.</p>
+      <a href="https://v1desktop-relai.app" class="home-link">← Back to Relai Desktop</a>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    Relai AG · Zürich, Switzerland ·
+    <a href="https://relai.app/privacy-policy">Privacy Policy</a>
+  </div>
+
+  <script>
+    var confirmedEmail = '';
+
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+    }
+
+    function handleContinue() {
+      var input = document.getElementById('email-input');
+      var errMsg = document.getElementById('error-msg');
+      var email = input.value.trim();
+
+      if (!isValidEmail(email)) {
+        input.classList.add('error');
+        errMsg.style.display = 'block';
+        input.focus();
+        return;
+      }
+
+      input.classList.remove('error');
+      errMsg.style.display = 'none';
+      confirmedEmail = email;
+
+      document.getElementById('email-display').textContent = email;
+      document.getElementById('step-input').style.display = 'none';
+      document.getElementById('step-confirm').style.display = 'block';
+    }
+
+    function goBack() {
+      document.getElementById('step-confirm').style.display = 'none';
+      document.getElementById('step-input').style.display = 'block';
+    }
+
+    function handleUnsubscribe() {
+      // In a real deployment this would POST to your ESP API (Mailchimp, Klaviyo, etc.)
+      // For now it records the intent and shows the confirmation screen
+      var btn = document.querySelector('.btn-danger');
+      btn.textContent = 'Processing…';
+      btn.disabled = true;
+
+      setTimeout(function () {
+        document.getElementById('done-email').textContent = confirmedEmail;
+        document.getElementById('step-confirm').style.display = 'none';
+        document.getElementById('step-done').style.display = 'block';
+      }, 1200);
+    }
+
+    // Allow Enter key to submit
+    document.getElementById('email-input').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') handleContinue();
+    });
+
+    // Pre-fill email from URL param ?email=...
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var emailParam = params.get('email');
+      if (emailParam) {
+        document.getElementById('email-input').value = decodeURIComponent(emailParam);
+      }
+    })();
+  </script>
+
+</body>
+</html>
